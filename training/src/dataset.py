@@ -88,14 +88,14 @@ def _get_dataset_pipeline(anno, batch_size, epoch, buffer_size, is_train=True):
     dataset = tf.data.Dataset.from_tensor_slices(imgIds)
 
     dataset.shuffle(buffer_size)
-    dataset = dataset.map(
-        lambda imgId: tuple(
-            tf.py_func(
-                func=_parse_function,
-                inp=[imgId, is_train],
-                Tout=[tf.float32, tf.float32]
-            )
-        ), num_parallel_calls=CONFIG['multiprocessing_num'])
+    # dataset = dataset.map(
+    #     lambda imgId: tuple(
+    #         tf.py_func(
+    #             func=_parse_function,
+    #             inp=[imgId, is_train],
+    #             Tout=[tf.float32, tf.float32]
+    #         )
+    #     ), num_parallel_calls=CONFIG['multiprocessing_num'])
 
     dataset = dataset.map(_set_shapes, num_parallel_calls=CONFIG['multiprocessing_num'])
     dataset = dataset.batch(batch_size).repeat(epoch)
