@@ -50,8 +50,8 @@ def get_network_output_wh():
 
 
 def pose_random_scale(meta):
-    scalew = random.uniform(0.8, 1.2)
-    scaleh = random.uniform(0.8, 1.2)
+    scalew = random.uniform(0.5625, 1)
+    scaleh = random.uniform(1, 1.8)
     neww = int(meta.width * scalew)
     newh = int(meta.height * scaleh)
 
