@@ -90,24 +90,25 @@ class CocoMetadata:
 
             joint_list.append([(x, y) if v >= 1 else (-1000, -1000) for x, y, v in zip(xs, ys, vs)])
 
-        self.joint_list = []
-        transform = list(zip(
-            [1, 2, 4, 6, 8, 3, 5, 7, 10, 12, 14, 9, 11, 13],
-            [1, 2, 4, 6, 8, 3, 5, 7, 10, 12, 14, 9, 11, 13]
-        ))
-        for prev_joint in joint_list:
-            new_joint = []
-            for idx1, idx2 in transform:
-                j1 = prev_joint[idx1 - 1]
-                j2 = prev_joint[idx2 - 1]
+        self.joint_list = joint_list
+        # self.joint_list = []
+        # transform = list(zip(
+        #     [1, 2, 4, 6, 8, 3, 5, 7, 10, 12, 14, 9, 11, 13],
+        #     [1, 2, 4, 6, 8, 3, 5, 7, 10, 12, 14, 9, 11, 13]
+        # ))
+        # for prev_joint in joint_list:
+        #     new_joint = []
+        #     for idx1, idx2 in transform:
+        #         j1 = prev_joint[idx1 - 1]
+        #         j2 = prev_joint[idx2 - 1]
 
-                if j1[0] <= 0 or j1[1] <= 0 or j2[0] <= 0 or j2[1] <= 0:
-                    new_joint.append((-1000, -1000))
-                else:
-                    new_joint.append(((j1[0] + j2[0]) / 2, (j1[1] + j2[1]) / 2))
-            # background
-            # new_joint.append((-1000, -1000))
-            self.joint_list.append(new_joint)
+        #         if j1[0] <= 0 or j1[1] <= 0 or j2[0] <= 0 or j2[1] <= 0:
+        #             new_joint.append((-1000, -1000))
+        #         else:
+        #             new_joint.append(((j1[0] + j2[0]) / 2, (j1[1] + j2[1]) / 2))
+        #     # background
+        #     # new_joint.append((-1000, -1000))
+        #     self.joint_list.append(new_joint)
 
     def get_heatmap(self, target_size):
         heatmap = np.zeros((CocoMetadata.__coco_parts, self.height, self.width), dtype=np.float32)
